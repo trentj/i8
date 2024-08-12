@@ -1,61 +1,68 @@
-WITH food_sodium AS (
-    -- Calculate total sodium consumed from individual food units
+WITH RECURSIVE recipe_sodium AS (
+    -- Base case: Direct food unit ingredients in the recipe
     SELECT
-        fu.food_unit_id,
-        f.name AS item_name,
-        fu.unit,
-        SUM(fu.sodium_mg * l.quantity) AS total_sodium
+        r.recipe_id,
+        r.name AS recipe_name,
+        r.variant,
+        rf.recipe_ingredient_id,
+        rf.quantity * f.sodium_mg AS sodium_mg
+    FROM
+        recipes r
+    JOIN
+        recipe_ingredients rf ON r.recipe_id = rf.recipe_id
+    JOIN
+        food_units f ON rf.food_unit_id = f.food_unit_id
+
+    UNION ALL
+
+    -- Recursive case: Ingredients that are sub-recipes
+    SELECT
+        r.recipe_id,
+        r.name AS recipe_name,
+        r.variant,
+        rf.recipe_ingredient_id,
+        rf.quantity * rs.sodium_mg AS sodium_mg
+    FROM
+        recipes r
+    JOIN
+        recipe_ingredients rf ON r.recipe_id = rf.recipe_id
+    JOIN
+        recipe_sodium rs ON rf.subrecipe_id = rs.recipe_id
+),
+-- Summing up the sodium content for each recipe
+recipe_totals AS (
+    SELECT
+        recipe_id,
+        recipe_name,
+        variant,
+        SUM(sodium_mg) AS total_sodium_mg
+    FROM
+        recipe_sodium
+    GROUP BY
+        recipe_id, recipe_name, variant
+),
+-- Calculate sodium content for each logbook entry
+logbook_sodium AS (
+    SELECT
+        l.logbook_id,
+        l.date,
+        COALESCE(ff.name, rt.recipe_name || COALESCE(' (' || rt.variant || ')', '')) AS item_name,
+        l.quantity * COALESCE(f.sodium_mg, rt.total_sodium_mg) AS total_sodium_mg
     FROM
         logbook l
-    JOIN
-        food_units fu ON l.food_unit_id = fu.food_unit_id
-    JOIN
-        foods f ON fu.food_id = f.food_id
-    WHERE
-        l.food_unit_id IS NOT NULL
-    GROUP BY
-        fu.food_unit_id, f.name, fu.unit
-),
-recipe_sodium AS (
-    -- Calculate total sodium consumed from recipes
-    SELECT
-        r.recipe_id AS food_unit_id,
-        r.name AS item_name,
-        r.unit,
-        SUM(ri.quantity * fu.sodium_mg) AS total_sodium
-    FROM
-        logbook l
-    JOIN
-        recipes r ON l.recipe_id = r.recipe_id
-    JOIN
-        recipe_ingredients ri ON r.recipe_id = ri.recipe_id
-    JOIN
-        food_units fu ON ri.food_unit_id = fu.food_unit_id
-    WHERE
-        l.recipe_id IS NOT NULL
-    GROUP BY
-        r.recipe_id, r.name, r.unit
-),
-combined_sodium AS (
-    -- Combine sodium from both food units and recipes
-    SELECT
-        item_name,
-        unit,
-        SUM(total_sodium) AS total_sodium
-    FROM (
-        SELECT item_name, unit, total_sodium FROM food_sodium
-        UNION ALL
-        SELECT item_name, unit, total_sodium FROM recipe_sodium
-    )
-    GROUP BY item_name, unit
+    LEFT JOIN
+        food_units f ON l.food_unit_id = f.food_unit_id
+    LEFT JOIN
+        recipe_totals rt ON l.recipe_id = rt.recipe_id
+    LEFT JOIN
+        foods ff on f.food_id = ff.food_id
 )
--- Final output
+-- Select the top 10 highest sodium food items
 SELECT
     item_name,
-    unit,
-    total_sodium
+    total_sodium_mg
 FROM
-    combined_sodium
+    logbook_sodium
 ORDER BY
-    total_sodium DESC
+    total_sodium_mg DESC
 LIMIT 10;

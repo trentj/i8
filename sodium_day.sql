@@ -1,54 +1,62 @@
-WITH food_sodium AS (
-    -- Calculate total sodium consumed from individual food units
+WITH RECURSIVE recipe_sodium AS (
+    -- Base case: Direct food unit ingredients in the recipe
     SELECT
-        l.date,
-        SUM(fu.sodium_mg * l.quantity) AS total_sodium
+        r.recipe_id,
+        r.name AS recipe_name,
+        r.variant,
+        rf.recipe_ingredient_id,
+        rf.quantity * f.sodium_mg AS sodium_mg
     FROM
-        logbook l
+        recipes r
     JOIN
-        food_units fu ON l.food_unit_id = fu.food_unit_id
-    WHERE
-        l.food_unit_id IS NOT NULL
-    GROUP BY
-        l.date
-),
-recipe_sodium AS (
-    -- Calculate total sodium consumed from recipes
+        recipe_ingredients rf ON r.recipe_id = rf.recipe_id
+    JOIN
+        food_units f ON rf.food_unit_id = f.food_unit_id
+
+    UNION ALL
+
+    -- Recursive case: Ingredients that are sub-recipes
     SELECT
-        l.date,
-        SUM(
-            ri.quantity * fu.sodium_mg
-        ) AS total_sodium
+        r.recipe_id,
+        r.name AS recipe_name,
+        r.variant,
+        rf.recipe_ingredient_id,
+        rf.quantity * rs.sodium_mg AS sodium_mg
     FROM
-        logbook l
+        recipes r
     JOIN
-        recipes r ON l.recipe_id = r.recipe_id
+        recipe_ingredients rf ON r.recipe_id = rf.recipe_id
     JOIN
-        recipe_ingredients ri ON r.recipe_id = ri.recipe_id
-    JOIN
-        food_units fu ON ri.food_unit_id = fu.food_unit_id
-    WHERE
-        l.recipe_id IS NOT NULL
-    GROUP BY
-        l.date
+        recipe_sodium rs ON rf.subrecipe_id = rs.recipe_id
 ),
-combined_sodium AS (
-    -- Combine sodium from both food units and recipes
+-- Summing up the sodium content for each recipe
+recipe_totals AS (
     SELECT
-        date,
-        SUM(total_sodium) AS total_sodium
-    FROM (
-        SELECT date, total_sodium FROM food_sodium
-        UNION ALL
-        SELECT date, total_sodium FROM recipe_sodium
-    )
-    GROUP BY date
+        recipe_id,
+        SUM(sodium_mg) AS total_sodium_mg
+    FROM
+        recipe_sodium
+    GROUP BY
+        recipe_id
 )
--- Final output
+-- Calculate total sodium per day
 SELECT
-    date,
-    total_sodium
+    l.date,
+    SUM(
+        CASE
+            -- Sodium for food units
+            WHEN l.food_unit_id IS NOT NULL THEN l.quantity * f.sodium_mg
+            -- Sodium for recipes
+            WHEN l.recipe_id IS NOT NULL THEN l.quantity * rt.total_sodium_mg
+        END
+    ) AS total_sodium_mg
 FROM
-    combined_sodium
+    logbook l
+LEFT JOIN
+    food_units f ON l.food_unit_id = f.food_unit_id
+LEFT JOIN
+    recipe_totals rt ON l.recipe_id = rt.recipe_id
+GROUP BY
+    l.date
 ORDER BY
-    date;
+    l.date;

@@ -73,7 +73,7 @@ class I8:
         cur = self.db.cursor()
         food_unit_id, recipe_id, item_name = self._food_or_recipe(cur, args.item)
         cur.execute("INSERT INTO logbook (date, food_unit_id, recipe_id, quantity) VALUES (IFNULL(?, DATE()), ?, ?, ?)",
-                    (args.date and args.date.isodate(), food_unit_id, recipe_id, args.quantity))
+                    (args.date and args.date.isoformat(), food_unit_id, recipe_id, args.quantity))
         print(f"[{cur.lastrowid}] Recorded {args.quantity} {item_name} {args.date or 'today'}")
         self.db.commit()
 
@@ -138,8 +138,8 @@ class I8:
         with open(args.filename) as fp:
             last_line = ""
             for line in fp:
-                if line.endswith("\\"):
-                    last_line += line[:-1]
+                if line.rstrip().endswith("\\"):
+                    last_line += line[:line.rfind("\\")]
                     continue
                 else:
                     line = last_line + line
