@@ -5,6 +5,10 @@ import shlex
 import sqlite3
 
 
+class ItemNotFound(Exception):
+    pass
+
+
 class I8:
     def __init__(self, db_path: pathlib.Path = "food.db"):
         self.db = sqlite3.connect(db_path)
@@ -62,7 +66,7 @@ class I8:
         for itemname, food_unit_id, recipe_id, itemunit in food_units:
             break
         else:
-            raise Exception(f"No such food or recipe {itemname}")
+            raise ItemNotFound(f"No such food or recipe {itemname}")
         return food_unit_id, recipe_id, f"{itemunit} {itemname}"
 
     def log(self, args: argparse.Namespace):
@@ -112,14 +116,18 @@ class I8:
                     (args.name, args.variant, args.unit))
         recipe_id = cur.lastrowid
         print(f"Created recipe [{recipe_id}] {args.name}, {args.variant} (makes {args.unit})")
-        for n, (item, quantity) in enumerate(args.add_ingredient):
-            q = float(quantity)
-            food_unit_id, subrecipe_id, item_name = self._food_or_recipe(cur, item)
-            cur.execute("""
-            INSERT INTO recipe_ingredients (recipe_id, food_unit_id, subrecipe_id, quantity)
-            VALUES (?, ?, ?, ?)""",
-                        (recipe_id, food_unit_id, subrecipe_id, q))
-            print(f"{n + 1:2}. {q} {item_name}")
+        try:
+            for n, (item, quantity) in enumerate(args.add_ingredient):
+                q = float(quantity)
+                food_unit_id, subrecipe_id, item_name = self._food_or_recipe(cur, item)
+                cur.execute("""
+                INSERT INTO recipe_ingredients (recipe_id, food_unit_id, subrecipe_id, quantity)
+                VALUES (?, ?, ?, ?)""",
+                            (recipe_id, food_unit_id, subrecipe_id, q))
+                print(f"{n + 1:2}. {q} {item_name}")
+        except ItemNotFound:
+            self.db.rollback()
+            raise
         self.db.commit()
 
     def _read_parser(self, parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
