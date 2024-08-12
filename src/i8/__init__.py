@@ -46,23 +46,24 @@ class I8:
         self.db.commit()
 
     def _log_parser(self, parser: argparse.ArgumentParser):
-        parser.add_argument("item", type=str, help="Food or recipe eaten")
+        parser.add_argument("item", type=str, help="Name of food or recipe eaten")
         parser.add_argument("quantity", type=float, default=1, help="Number of units per serving")
         parser.add_argument("-d", "--date", type=datetime.date.fromisoformat, help="Date to enter")
+        parser.add_argument("-v", "--variant", "--variety", type=str, help="Food or recipe variant")
         parser.set_defaults(fn=self.log)
         return parser
 
     @staticmethod
-    def _food_or_recipe(cur: sqlite3.Cursor, itemname: str) -> (int | None, int | None, str):
+    def _food_or_recipe(cur: sqlite3.Cursor, itemname: str, variant: str | None = None) -> (int | None, int | None, str):
             # look up food or recipe unit
         food_units = cur.execute("""
-        SELECT * FROM (
-            SELECT foods.name AS itemname, food_unit_id, NULL AS recipe_id, food_units.unit AS unit
+        SELECT itemname, food_unit_id, recipe_id, unit FROM (
+            SELECT foods.name AS itemname, food_unit_id, NULL AS recipe_id, food_units.unit AS unit, variant
             FROM food_units JOIN foods ON food_units.food_id = foods.food_id
           UNION
-            SELECT recipes.name AS itemname, NULL AS food_unit_id, recipe_id, recipes.unit AS unit
+            SELECT recipes.name AS itemname, NULL AS food_unit_id, recipe_id, recipes.unit AS unit, variant
             FROM recipes
-        ) WHERE itemname = ?""", (itemname,))
+        ) WHERE itemname = ? AND variant IS IFNULL(?, variant)""", (itemname, variant))
         for itemname, food_unit_id, recipe_id, itemunit in food_units:
             break
         else:
@@ -71,7 +72,7 @@ class I8:
 
     def log(self, args: argparse.Namespace):
         cur = self.db.cursor()
-        food_unit_id, recipe_id, item_name = self._food_or_recipe(cur, args.item)
+        food_unit_id, recipe_id, item_name = self._food_or_recipe(cur, args.item, args.variant)
         cur.execute("INSERT INTO logbook (date, food_unit_id, recipe_id, quantity) VALUES (IFNULL(?, DATE()), ?, ?, ?)",
                     (args.date and args.date.isoformat(), food_unit_id, recipe_id, args.quantity))
         print(f"[{cur.lastrowid}] Recorded {args.quantity} {item_name} {args.date or 'today'}")
