@@ -45,6 +45,8 @@ recipe_totals AS (
 logbook_sodium AS (
     SELECT
         l.logbook_id,
+        l.recipe_id,
+        l.quantity,
         l.date,
         COALESCE(ff.name, rt.recipe_name || COALESCE(' (' || rt.variant || ')', '')) AS item_name,
         l.quantity * COALESCE(f.sodium_mg, rt.total_sodium_mg) AS total_sodium_mg
@@ -59,8 +61,10 @@ logbook_sodium AS (
 )
 -- Select the top 10 highest sodium food items
 SELECT
+    recipe_id,
+    ROUND(quantity, 2),
     item_name,
-    total_sodium_mg
+    CAST(total_sodium_mg AS INTEGER)
 FROM
     logbook_sodium
 ORDER BY

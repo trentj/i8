@@ -1,43 +1,69 @@
-WITH RECURSIVE recipe_sodium AS (
-    -- Base case: Direct food unit ingredients in the recipe
+-- build a table of subrecipes and food ingredients (root to leaf)
+WITH RECURSIVE recipe_contents AS (
     SELECT
-        r.recipe_id,
-        r.name AS recipe_name,
-        r.variant,
-        rf.recipe_ingredient_id,
-        rf.quantity * f.sodium_mg AS sodium_mg
-    FROM
-        recipes r
-    JOIN
-        recipe_ingredients rf ON r.recipe_id = rf.recipe_id
-    JOIN
-        food_units f ON rf.food_unit_id = f.food_unit_id
+        NULL as recipe_id,
+        :recipe_id AS subrecipe_id,
+        NULL AS food_unit_id,
+        1.0 AS quantity
 
     UNION ALL
 
-    -- Recursive case: Ingredients that are sub-recipes
     SELECT
-        r.recipe_id,
-        r.name AS recipe_name,
-        r.variant,
-        rf.recipe_ingredient_id,
-        rf.quantity * rs.sodium_mg AS sodium_mg
+        child.recipe_id,
+        child.subrecipe_id,
+        child.food_unit_id,
+        child.quantity
     FROM
-        recipes r
+        recipe_ingredients child
     JOIN
-        recipe_ingredients rf ON r.recipe_id = rf.recipe_id
+        recipe_contents parent ON parent.subrecipe_id = child.recipe_id
+),
+-- sum up the sodium content for each recipe (leaf to root)
+recipe_sodium AS (
+    -- base case: food ingredients
+    SELECT
+        c.recipe_id,
+        c.food_unit_id,
+        NULL AS subrecipe_id,
+        c.quantity,
+        c.quantity * f.sodium_mg AS sodium_mg
+    FROM
+        recipe_contents c
     JOIN
-        recipe_sodium rs ON rf.subrecipe_id = rs.recipe_id
+        food_units f ON f.food_unit_id = c.food_unit_id
+
+    UNION ALL
+    -- recursive case: intermediate recipes
+    SELECT
+        c.recipe_id,
+        NULL AS food_unit_id,
+        c.subrecipe_id,
+        c.quantity,
+        c.quantity * s.sodium_mg AS sodium_mg
+    FROM
+        recipe_contents c
+    JOIN
+        recipe_sodium s ON s.recipe_id = c.subrecipe_id
 )
--- Summing up the sodium content for each recipe
 SELECT
-    recipe_id,
-    recipe_name,
-    variant,
-    SUM(sodium_mg) AS total_sodium_mg
+    NULL, f.name, ROUND(s.quantity, 2), u.unit, ROUND(s.sodium_mg, 3) AS sodium_mg
 FROM
-    recipe_sodium
-GROUP BY
-    recipe_id,
-    recipe_name,
-    variant;
+    recipe_sodium s
+JOIN
+    food_units u ON u.food_unit_id = s.food_unit_id
+JOIN
+    foods f ON f.food_id = u.food_id
+WHERE s.recipe_id = :recipe_id
+
+UNION ALL
+
+SELECT
+    r.recipe_id, r.name, ROUND(s.quantity, 2), r.unit, ROUND(SUM(s.sodium_mg), 3) AS sodium_mg
+FROM
+    recipe_sodium s
+JOIN
+    recipes r ON r.recipe_id = s.subrecipe_id
+WHERE s.recipe_id = :recipe_id
+GROUP BY s.subrecipe_id
+
+ORDER BY sodium_mg DESC;

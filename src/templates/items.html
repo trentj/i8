@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+</head>
+<body>
+
+<h1>{{title}}</h1>
+
+<table>
+{% for item in items %}
+    <tr>
+        <td>
+            {% if item.recipe_id is not none %}
+                <a href="/recipe/{{item.recipe_id}}">{{item.name}}</a>
+            {% else %}
+                {{item.name}}
+            {% endif %}
+        </td>
+        <td>{{item.quantity}}</td>
+        {% if item.unit is not none %}
+            <td>{{item.unit}}</td>
+        {% endif %}
+        <td>{{item.sodium_mg}}</td>
+    </tr>
+{% endfor %}
+</table>
+</body>
+</html>
