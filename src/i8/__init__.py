@@ -20,7 +20,7 @@ class I8:
         parser.add_argument("-s", "--source", type=str, help="Source or brand")
         parser.add_argument("-n", "--number", type=float, default=1, help="Number of units per serving")
         parser.add_argument("unit", type=str, help="Unit of serving measurement")
-        parser.add_argument("sodium", type=str, help="Sodium content (mg)")
+        parser.add_argument("sodium", type=float, help="Sodium content (mg)")
         parser.set_defaults(fn=self.food)
         return parser
 
@@ -42,7 +42,7 @@ class I8:
                         (args.name, args.variant, args.format, args.source))
             food_id = cur.lastrowid
         cur.execute("INSERT INTO food_units (food_id, unit, sodium_mg) VALUES (?, ?, ?)",
-                    (food_id, args.unit, args.sodium))
+                    (food_id, args.unit, args.sodium / args.number))
         self.db.commit()
 
     def _log_parser(self, parser: argparse.ArgumentParser):
@@ -99,13 +99,56 @@ class I8:
         for key, in res:
             print(f"{shlex.quote(key)}")
 
+    def _fixunits_parser(self, parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
+        parser.add_argument("food", type=str, help="Name of food")
+        parser.add_argument("old_unit", type=str)
+        parser.add_argument("-n", "--number", type=float, default=1.0, help="Number of old units in the new unit")
+        parser.add_argument("-d", "--denominator", type=float, default=1.0)
+        parser.add_argument("new_unit", type=str)
+        parser.set_defaults(fn=self.fix_units)
+        return parser
+
+    def fix_units(self, args: argparse.Namespace):
+        cur = self.db.cursor()
+        food_id, _recipe_id, _n = self._food_or_recipe(cur, args.food)
+        if food_id is None:
+            raise NotImplementedError("fix_units for recipes")
+        res = cur.execute("SELECT food_unit_id, sodium_mg FROM food_units WHERE food_id = ? AND unit = ?",
+                                        (food_id, args.old_unit,))
+        for old_unit_id, sodium_mg in res:
+            break
+        else:
+            raise Exception(f"Not found: {args.old_unit}")
+        cur.execute("INSERT INTO food_units (food_id, unit, sodium_mg) VALUES (?, ?, ?)",
+                    (food_id, args.new_unit, int(sodium_mg * args.number / args.denominator)))
+        new_unit_id = cur.lastrowid
+        cur.execute("""
+        UPDATE logbook
+        SET
+            food_unit_id = ?,
+            quantity = quantity * ? / ?
+        WHERE
+            food_unit_id = ?""",
+                    (new_unit_id, args.denominator, args.number, old_unit_id))
+        cur.execute("""
+        UPDATE recipe_ingredients
+        SET
+            food_unit_id = ?,
+            quantity = quantity * ? / ?
+        WHERE
+            food_unit_id = ?""",
+                    (new_unit_id, args.denominator, args.number, old_unit_id))
+        cur.execute("DELETE FROM food_units WHERE food_unit_id = ?", (old_unit_id,))
+        self.db.commit()
+
     def _recipe_parser(self, parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
         parser.add_argument("name", type=str, help="Name of recipe")
         parser.add_argument("-v", "--variant", "--variety", type=str, help="Recipe variant")
         # parser.add_argument("-i", "--interactive", action="store_true", help="Run interactively")
         parser.add_argument("-a", "--add_ingredient", nargs=2, action="append", help="Add ingredient")
         # parser.add_argument("-s", "--source", type=str, help="Source or brand")
-        parser.add_argument("unit", type=str, help="Recipe yield")
+        parser.add_argument("-n", "--number", type=float, default=1, help="Recipe yield")
+        parser.add_argument("unit", type=str, help="Unit of yield")
         parser.set_defaults(fn=self.recipe)
         return parser
 
@@ -116,7 +159,7 @@ class I8:
         cur.execute("INSERT INTO recipes (name, variant, unit) VALUES (?, ?, ?)",
                     (args.name, args.variant, args.unit))
         recipe_id = cur.lastrowid
-        print(f"Created recipe [{recipe_id}] {args.name}, {args.variant} (makes {args.unit})")
+        print(f"Created recipe [{recipe_id}] {args.name}, {args.variant} (per {args.unit})")
         try:
             for n, (item, quantity) in enumerate(args.add_ingredient):
                 q = float(quantity)
@@ -124,7 +167,7 @@ class I8:
                 cur.execute("""
                 INSERT INTO recipe_ingredients (recipe_id, food_unit_id, subrecipe_id, quantity)
                 VALUES (?, ?, ?, ?)""",
-                            (recipe_id, food_unit_id, subrecipe_id, q))
+                            (recipe_id, food_unit_id, subrecipe_id, q / args.number))
                 print(f"{n + 1:2}. {q} {item_name}")
         except ItemNotFound:
             self.db.rollback()
@@ -157,5 +200,6 @@ class I8:
         self._log_parser(parsers.add_parser("log", description="Record items eaten"))
         self._recipe_parser(parsers.add_parser("recipe", description="Define a new recipe"))
         self._read_parser(parsers.add_parser("read", description="Read commands from file"))
+        self._fixunits_parser(parsers.add_parser("fix_units", description="Fix units"))
 
         return parser

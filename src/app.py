@@ -10,9 +10,17 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     db = get_connection()
-    with open("../top10.sql") as fp:
-        top_10 = [{'name': n, 'quantity': q, 'recipe_id': r, 'sodium_mg': s} for r, q, n, s in db.execute(fp.read())]
-    return render_template("items.html", items=top_10, title="Summary")
+    with open("../sodium_day.sql") as fp:
+        summary = [{'isodate': d, 'total_sodium_mg': s} for d, s in db.execute(fp.read())]
+    return render_template("by_date.html", dates=summary, title="Summary")
+
+
+@app.route("/date/<isodate>")
+def date(isodate):
+    db = get_connection()
+    with open("../day_summary.sql") as fp:
+        summary = [{'name': n, 'sodium_mg': s, 'quantity': q, 'recipe_id': r} for r, n, q, s in db.execute(fp.read(), {'isodate': isodate})]
+    return render_template("items.html", title=isodate, items=summary)
 
 
 @app.route("/recipes")

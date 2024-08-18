@@ -5,13 +5,13 @@ WITH RECURSIVE recipe_sodium AS (
         r.name AS recipe_name,
         r.variant,
         rf.recipe_ingredient_id,
-        rf.quantity * f.sodium_mg AS sodium_mg
+        rf.quantity * u.sodium_mg AS sodium_mg
     FROM
         recipes r
     JOIN
         recipe_ingredients rf ON r.recipe_id = rf.recipe_id
     JOIN
-        food_units f ON rf.food_unit_id = f.food_unit_id
+        food_units u ON rf.food_unit_id = u.food_unit_id
 
     UNION ALL
 
@@ -41,22 +41,33 @@ recipe_totals AS (
 )
 -- Calculate total sodium per day
 SELECT
-    l.date,
-    CAST(SUM(
-        CASE
-            -- Sodium for food units
-            WHEN l.food_unit_id IS NOT NULL THEN l.quantity * f.sodium_mg
-            -- Sodium for recipes
-            WHEN l.recipe_id IS NOT NULL THEN l.quantity * rt.total_sodium_mg
-        END
-    ) AS INTEGER) AS total_sodium_mg
+    NULL,
+    f.name,
+    l.quantity,
+    ROUND(l.quantity * u.sodium_mg, 3) AS total_sodium_mg
 FROM
     logbook l
-LEFT JOIN
-    food_units f ON l.food_unit_id = f.food_unit_id
-LEFT JOIN
+JOIN
+    food_units u ON l.food_unit_id = u.food_unit_id
+JOIN
+    foods f ON u.food_id = f.food_id
+WHERE
+    l.date = :isodate
+
+UNION ALL
+
+SELECT
+    rt.recipe_id,
+    r.name,
+    l.quantity,
+    ROUND(l.quantity * rt.total_sodium_mg, 3) AS total_sodium_mg
+FROM
+    logbook l
+JOIN
     recipe_totals rt ON l.recipe_id = rt.recipe_id
-GROUP BY
-    l.date
+JOIN
+    recipes r ON rt.recipe_id = r.recipe_id
+WHERE
+    l.date = :isodate
 ORDER BY
-    l.date;
+    total_sodium_mg DESC;
