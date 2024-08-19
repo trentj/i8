@@ -57,18 +57,22 @@ class I8:
     def _food_or_recipe(cur: sqlite3.Cursor, itemname: str, variant: str | None = None) -> (int | None, int | None, str):
             # look up food or recipe unit
         food_units = cur.execute("""
-        SELECT itemname, food_unit_id, recipe_id, unit FROM (
-            SELECT foods.name AS itemname, food_unit_id, NULL AS recipe_id, food_units.unit AS unit, variant
+        SELECT itemname, food_unit_id, recipe_id, yield, unit FROM (
+            SELECT foods.name AS itemname, food_unit_id, NULL AS recipe_id, food_units.unit AS unit, variant, 1 as yield
             FROM food_units JOIN foods ON food_units.food_id = foods.food_id
-          UNION
-            SELECT recipes.name AS itemname, NULL AS food_unit_id, recipe_id, recipes.unit AS unit, variant
+          UNION ALL
+            SELECT recipes.name AS itemname, NULL AS food_unit_id, recipe_id, recipes.unit AS unit, variant, recipes.yield
             FROM recipes
         ) WHERE itemname = ? AND variant IS IFNULL(?, variant)""", (itemname, variant))
-        for itemname, food_unit_id, recipe_id, itemunit in food_units:
+        for itemname, food_unit_id, recipe_id, quantity, itemunit in food_units:
             break
         else:
             raise ItemNotFound(f"No such food or recipe {itemname}")
-        return food_unit_id, recipe_id, f"{itemunit} {itemname}"
+        if quantity == 1:
+            description = f"{itemunit} {itemname}"
+        else:
+            description = f"{quantity} {itemunit} {itemname}"
+        return food_unit_id, recipe_id, description
 
     def log(self, args: argparse.Namespace):
         cur = self.db.cursor()
@@ -156,10 +160,10 @@ class I8:
         cur = self.db.cursor()
         if not args.add_ingredient:
             raise Exception("interactive mode")
-        cur.execute("INSERT INTO recipes (name, variant, unit) VALUES (?, ?, ?)",
-                    (args.name, args.variant, args.unit))
+        cur.execute("INSERT INTO recipes (name, variant, unit, yield) VALUES (?, ?, ?, ?)",
+                    (args.name, args.variant, args.unit, args.number))
         recipe_id = cur.lastrowid
-        print(f"Created recipe [{recipe_id}] {args.name}, {args.variant} (per {args.unit})")
+        print(f"Created recipe [{recipe_id}] {args.name}, {args.variant} (makes {args.unit} {args.number})")
         try:
             for n, (item, quantity) in enumerate(args.add_ingredient):
                 q = float(quantity)
@@ -167,7 +171,7 @@ class I8:
                 cur.execute("""
                 INSERT INTO recipe_ingredients (recipe_id, food_unit_id, subrecipe_id, quantity)
                 VALUES (?, ?, ?, ?)""",
-                            (recipe_id, food_unit_id, subrecipe_id, q / args.number))
+                            (recipe_id, food_unit_id, subrecipe_id, q))
                 print(f"{n + 1:2}. {q} {item_name}")
         except ItemNotFound:
             self.db.rollback()

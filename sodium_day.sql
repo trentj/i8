@@ -5,7 +5,7 @@ WITH RECURSIVE recipe_sodium AS (
         r.name AS recipe_name,
         r.variant,
         rf.recipe_ingredient_id,
-        rf.quantity * f.sodium_mg AS sodium_mg
+        rf.quantity * f.sodium_mg / r.yield AS sodium_mg
     FROM
         recipes r
     JOIN
@@ -21,7 +21,7 @@ WITH RECURSIVE recipe_sodium AS (
         r.name AS recipe_name,
         r.variant,
         rf.recipe_ingredient_id,
-        rf.quantity * rs.sodium_mg AS sodium_mg
+        rf.quantity * rs.sodium_mg / r.yield AS sodium_mg
     FROM
         recipes r
     JOIN
@@ -42,14 +42,14 @@ recipe_totals AS (
 -- Calculate total sodium per day
 SELECT
     l.date,
-    CAST(SUM(
+    CAST(ROUND(SUM(
         CASE
             -- Sodium for food units
             WHEN l.food_unit_id IS NOT NULL THEN l.quantity * f.sodium_mg
             -- Sodium for recipes
             WHEN l.recipe_id IS NOT NULL THEN l.quantity * rt.total_sodium_mg
         END
-    ) AS INTEGER) AS total_sodium_mg
+    )) AS INTEGER) AS total_sodium_mg
 FROM
     logbook l
 LEFT JOIN

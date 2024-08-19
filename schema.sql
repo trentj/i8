@@ -24,7 +24,8 @@ CREATE TABLE recipes (
     recipe_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     variant TEXT,
-    unit TEXT NOT NULL -- Unit of measurement for the recipe (e.g., "1 sandwich")
+    yield REAL NOT NULL, -- recipe yield (e.g. 1)
+    unit TEXT NOT NULL -- Unit of measurement for the recipe (e.g., "sandwich")
 );
 
 -- Table for storing food ingredients in recipes

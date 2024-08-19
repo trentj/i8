@@ -1,40 +1,55 @@
-WITH RECURSIVE recipe_sodium AS (
-    -- Base case: Direct food unit ingredients in the recipe
+-- Get the amount of sodium contributed to a recipe by each ingredient.
+-- First, calculate all the sodium contributed to each recipe by each ingredient...
+WITH RECURSIVE unit_sodium AS (
     SELECT
-        r.recipe_id,
-        r.name AS recipe_name,
-        rf.recipe_ingredient_id,
-        rf.quantity * f.sodium_mg AS sodium_mg,
-        r.unit
+        i.recipe_id,
+        i.food_unit_id,
+        i.subrecipe_id,
+        ff.name AS item_name,
+        f.unit AS unit_name,
+        i.quantity,
+        f.sodium_mg * i.quantity AS unit_sodium_mg
     FROM
-        recipes r
+        recipe_ingredients i
     JOIN
-        recipe_ingredients rf ON r.recipe_id = rf.recipe_id
+        food_units f ON f.food_unit_id = i.food_unit_id
     JOIN
-        food_units f ON rf.food_unit_id = f.food_unit_id
+        foods ff ON ff.food_id = f.food_id
 
     UNION ALL
 
-    -- Recursive case: Ingredients that are sub-recipes
     SELECT
-        r.recipe_id,
-        r.name AS recipe_name,
-        rf.recipe_ingredient_id,
-        rf.quantity * rs.sodium_mg AS sodium_mg,
-        r.unit
+        i.recipe_id,
+        i.food_unit_id,
+        i.subrecipe_id,
+        r.name AS item_name,
+        r.unit AS unit_name,
+        i.quantity,
+        s.unit_sodium_mg / r.yield * i.quantity AS unit_sodium_mg
     FROM
-        recipes r
+        recipe_ingredients i
     JOIN
-        recipe_ingredients rf ON r.recipe_id = rf.recipe_id
+        unit_sodium s ON s.recipe_id = i.subrecipe_id
     JOIN
-        recipe_sodium rs ON rf.subrecipe_id = rs.recipe_id
+        recipes r ON r.recipe_id = i.subrecipe_id
+),
+total_sodium AS (
+    SELECT
+        recipe_id,
+        SUM(unit_sodium_mg) AS sodium_mg
+    FROM
+        unit_sodium
+    GROUP BY
+        recipe_id
+    --ORDER BY sodium_mg DESC
 )
--- Summing up the sodium content for each recipe
 SELECT
-    rs.recipe_id,
-    rs.recipe_name,
-    rs.unit,
-    ROUND(SUM(sodium_mg), 2) AS total_sodium_mg
+    r.recipe_id,
+    r.name,
+    r.yield,
+    r.unit,
+    sodium_mg
 FROM
-    recipe_sodium rs
-GROUP BY rs.recipe_id;
+    total_sodium
+JOIN
+    recipes r ON r.recipe_id = total_sodium.recipe_id;

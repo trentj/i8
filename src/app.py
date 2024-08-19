@@ -19,7 +19,7 @@ def index():
 def date(isodate):
     db = get_connection()
     with open("../day_summary.sql") as fp:
-        summary = [{'name': n, 'sodium_mg': s, 'quantity': q, 'recipe_id': r} for r, n, q, s in db.execute(fp.read(), {'isodate': isodate})]
+        summary = [{'name': n, 'sodium_mg': s, 'quantity': q, 'unit': u, 'recipe_id': r} for r, n, q, u, s in db.execute(fp.read(), {'isodate': isodate})]
     return render_template("items.html", title=isodate, items=summary)
 
 
@@ -28,7 +28,7 @@ def recipes():
     db = get_connection()
     with open("../recipes.sql") as fp:
         recipes = [
-            {'name': n, 'sodium_mg': s, 'quantity': y, 'recipe_id': r} for r, n, y, s in
+            {'name': n, 'sodium_mg': s, 'quantity': y, 'unit': u, 'recipe_id': r} for r, n, y, u, s in
             db.execute(fp.read())]
     return render_template("items.html", title="Recipes", items=recipes)
 
