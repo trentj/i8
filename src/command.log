@@ -1,0 +1,700 @@
+food banana large 1.0
+food 'Greek yogurt' '2/3 c' 65.0
+food zucchini medium 9.0
+food ginger finger 0.5
+food 'frozen fruit' any 0.0
+food 'banana bread' slice 175.0
+food 'cream cheese spread' '2 T' 120.0
+food coffee '6 oz' 4.0
+food 'half & half' '2 T' 15.0
+food tea any 0.0
+food 'queso blanco' oz 210.0
+food 'carne asada (prepared)' '4 oz' 750.0
+food tomato small 5.0
+food onion medium 3.0
+food cilantro sprig 1.0
+food mayonnaise T 100.0
+food salt '¼ t' 420.0
+food Coca-cola '12 oz' 45.0
+food 'IBC root beer' '12 oz' 55.0
+food 'Kirkland Italian sausage' link 630.0
+food 'baby bella mushrooms' medium 5.0
+food 'cheddar cheese, shredded' '¼ c' 180.0
+food arepa arepa 75.0
+food 'tomato sauce' can 2100.0
+food 'ice cream' -v 'Mint Chocolate Chip' -s Tillamook scoop 50
+food asparagus '½ c' 1.0
+food 'fiber powder' any 0.0
+food pineapple '½ c' 1.0
+food bagel -v sesame -s Kirkland bagel 580.0
+food 'cheddar cheese' oz 180.0
+food 'turkey, sliced' slice 100.0
+food 'Kirkland low sodium bacon' '2 slices' 140.0
+food 'romaine lettuce' '6 leaves' 10.0
+food 'mustard, stone ground' t 85.0
+food flour -v all-purpose -s Kirkland c 0
+food 'yeast, dry' T 6.0
+food 'roasted red peppers, canned' '8 slices' 104.0
+food 'chickpeas, canned' can 420.0
+food 'sesame seeds' T 9.0
+food lemon lemon 1.0
+food 'garlic powder' t 1.0
+food 'dill pickle chips' '17 chips' 160.0
+food 'pretzel bites w/ cheese dip' '5 bites' 660.0
+food 'mint chip Oreo' 'cookie' 45.0
+food carrot medium 42.0
+food 'sour gummy worms' container 10.0
+food 'truffle popcorn' '3 ½ c' 300.0
+food 'chicken fingers' -s "Raising Cane's" finger 190.0
+food 'fries, without salt' -s "Raising Cane's" order 50.0
+food "Cane's sauce" -s "Raising Cane's" cup 580.0
+food ketchup -n 2 T 308
+food 'sweet tea' -s "Raising Cane's" regular 25.0
+food 'Starbucks iced chai latte' venti 160.0
+food 'hoisin sauce' T 180.0
+recipe \
+    -a banana 1.5 \
+    -a 'Greek yogurt' 0.5 \
+    -a zucchini 1.0 \
+    -a ginger 1.0 \
+    Smoothie smoothie
+recipe \
+    -a 'tomato sauce' 1.0 \
+    -a 'Kirkland Italian sausage' 3.0 \
+    -a zucchini 0.5 \
+    -a 'baby bella mushrooms' 4.0 \
+    -a onion 1.5 \
+    'Pasta sauce' pot
+recipe \
+    -a banana 1.25 \
+    -a zucchini 1.0 \
+    -a asparagus 0.5 \
+    -a 'frozen fruit' 1.0 \
+    -a pineapple 2.0 \
+    -a 'fiber powder' 1.0 \
+    -a ginger 1.0 \
+    -a 'Greek yogurt' 0.5 \
+    'Smoothie 2' smoothie
+recipe \
+    -a salt 8.0 \
+    -a flour 3.5 \
+    -a 'yeast, dry' 0.0833333333333333 \
+    'bread, Maria' loaf
+recipe \
+    -a 'turkey, sliced' 4.0 \
+    -a 'cheddar cheese' 1.0 \
+    -a 'Kirkland low sodium bacon' 1.0 \
+    -a onion 0.25 \
+    -a 'romaine lettuce' 0.333333333333333 \
+    -a mayonnaise 1.0 \
+    -a 'mustard, stone ground' 1.0 \
+    -a 'bread, Maria' 0.16666666666666666 \
+    'turkey sandwich' sandwich
+recipe \
+    -a 'chickpeas, canned' 1.0 \
+    -a 'sesame seeds' 4.0 \
+    -a lemon 0.5 \
+    -a 'garlic powder' 1.0 \
+    hummus -n 40 T
+recipe \
+    -a onion 0.25 \
+    -a zucchini 0.5 \
+    -a 'baby bella mushrooms' 3.0 \
+    -a 'romaine lettuce' 0.333333333333333 \
+    -a 'roasted red peppers, canned' 0.5 \
+    -a 'bread, Maria' 0.16666666666666666 \
+    -a hummus 1.0 \
+    'Mediterranean sandwich' sandwich
+recipe \
+    -a banana 1.25 \
+    -a zucchini 0.5 \
+    -a asparagus 0.5 \
+    -a 'frozen fruit' 1.0 \
+    -a pineapple 2.0 \
+    -a 'fiber powder' 1.0 \
+    -a ginger 1.0 \
+    -a 'Greek yogurt' 0.5 \
+    'Smoothie 3' smoothie
+log -d 2024-08-09 Smoothie 0.666666666666667
+log -d 2024-08-09 'banana bread' 1.0
+log -d 2024-08-09 'cream cheese spread' 0.5
+log -d 2024-08-09 coffee 2.0
+log -d 2024-08-09 'half & half' 0.5
+log -d 2024-08-09 tea 1.0
+log -d 2024-08-09 arepa 2.0
+log -d 2024-08-09 'carne asada (prepared)' 1.0
+log -d 2024-08-09 'queso blanco' 2.0
+log -d 2024-08-09 tomato 0.5
+log -d 2024-08-09 onion 0.5
+log -d 2024-08-09 cilantro 2.0
+log -d 2024-08-09 mayonnaise 1.5
+log -d 2024-08-09 Coca-cola 1.0
+log -d 2024-08-09 'IBC root beer' 1.0
+log -d 2024-08-09 salt 1.0
+log -d 2024-08-09 'Pasta sauce' 0.25
+log -d 2024-08-09 'cheddar cheese, shredded' 1.0
+log -d 2024-08-09 'ice cream' -v 'Mint Chocolate Chip' 2.0
+log -d 2024-08-10 coffee 2.0
+log -d 2024-08-10 'half & half' 0.5
+log -d 2024-08-10 'cream cheese spread' 0.5
+log -d 2024-08-10 bagel -v sesame 0.666666666666667
+log -d 2024-08-10 'Smoothie 2' 0.5
+log -d 2024-08-10 'IBC root beer' 1.0
+log -d 2024-08-10 'turkey sandwich' 0.5
+log -d 2024-08-10 'Mediterranean sandwich' 0.5
+log -d 2024-08-10 asparagus 1.0
+log -d 2024-08-10 'Starbucks iced chai latte' 1.0
+log -d 2024-08-10 'dill pickle chips' 0.5
+log -d 2024-08-10 'pretzel bites w/ cheese dip' 0.5
+log -d 2024-08-10 'mint chip Oreo' 2.0
+log -d 2024-08-10 hummus 1.0
+log -d 2024-08-10 carrot 0.666666666666667
+log -d 2024-08-10 'sour gummy worms' 0.5
+log -d 2024-08-10 'truffle popcorn' 0.5
+log -d 2024-08-10 'chicken fingers' 2.0
+log -d 2024-08-10 "Cane's sauce" 0.25
+log -d 2024-08-10 'fries, without salt' 0.5
+log -d 2024-08-10 ketchup 1
+log -d 2024-08-10 'sweet tea' 0.5
+log -d 2024-08-11 coffee 2.0
+log -d 2024-08-11 'half & half' 0.5
+log -d 2024-08-11 'Smoothie 3' 0.5
+log -d 2024-08-11 'banana bread' 1.0
+log -d 2024-08-11 'cream cheese spread' 0.5
+log -d 2024-08-11 coffee 1
+food cocoa -v marshmallows -s 'Swiss Miss' -f powdered packet 140
+log -d 2024-08-11 cocoa 1
+log -d 2024-08-11 'turkey sandwich' 1.0
+log -d 2024-08-11 'dill pickle chips' 0.5
+food cappucino '16 oz' 120
+log -d 2024-08-11 cappucino 1
+food rice -v jasmine c 0
+food 'sesame oil' T 0
+food 'olive oil' -v 'extra virgin' T 0
+food garlic clove 1
+food 'rice vinegar' T 0
+food 'red pepper' -f 'crushed' t 0
+food 'black pepper' -f 'ground' t 1
+food 'bell pepper' medium 2
+food 'water chestnuts' can 30
+food 'green onions' large 4
+food cashews c 22
+food 'chicken breast' lb 300
+recipe \
+    -a 'hoisin sauce' 3.0 \
+    -a rice 0 \
+    -a 'chicken breast' 0.5 \
+    -a 'sesame oil' 2 \
+    -a garlic 2.0 \
+    -a 'rice vinegar' 2 \
+    -a 'red pepper' 1 \
+    -a 'black pepper' 1 \
+    -a carrot 1.5 \
+    -a 'bell pepper' 1.0 \
+    -a 'water chestnuts' 1.0 \
+    -a cashews 0.5 \
+    -a 'green onions' 3 \
+    'cashew chicken' batch
+log -d 2024-08-11 'cashew chicken' 0.333333333333333
+log -d 2024-08-11 'mint chip Oreo' 1.0
+log -d 2024-08-11 'IBC root beer' 1.0
+food 'ice cream' -v 'Waffle Cone Swirl' -s Tillamook scoop 60
+food 'ice cream' -v 'Mint Chocolate Chip' -s Tillamook scoop 50
+log -d 2024-08-11 'ice cream' -v 'Waffle Cone Swirl' 0.5
+log -d 2024-08-11 'ice cream' -v 'Mint Chocolate Chip' 0.5
+log -d 2024-08-12 coffee 1.5
+log -d 2024-08-12 'half & half' 0.5
+log -d 2024-08-12 'Smoothie 3' 0.666666666666666667
+log -d 2024-08-12 'Pasta sauce' 0.333333333333333
+food 'baking powder' t 520
+food 'baking soda' t 1200
+food sugar -v granulated c 0
+food butter -v unsalted stick 13
+food milk -v 2% c 100
+food 'lemon juice' -v fresh c 50
+food 'lemon zest' T 1
+food 'vanilla extract' t 0
+food 'poppy seeds' T 2
+food egg egg 65
+recipe -v Lexi \
+    -a flour 2.25 \
+    -a 'baking powder' 2 \
+    -a 'baking soda' 0.5 \
+    -a salt 2.0 \
+    -a 'Greek yogurt' 1.5 \
+    -a egg 2 \
+    -a sugar 0.666666666666667 \
+    -a butter 1 \
+    -a milk 0.5 \
+    -a 'lemon juice' 0.25 \
+    -a 'lemon zest' 2 \
+    -a 'vanilla extract' 1 \
+    -a 'poppy seeds' 2 \
+    'poppy seed muffins' '15 muffins'
+log -d 2024-08-12 'poppy seed muffins' 0.06666666666666667
+log -d 2024-08-12 'IBC root beer' 1.0
+log -d 2024-08-12 'cheddar cheese, shredded' 0.5
+log -d 2024-08-12 'tea' 1.0
+log -d 2024-08-12 'half & half' 0.5
+food potato -v Russet large 30
+recipe \
+    -a potato 1.5 \
+    -a 'olive oil' 1 \
+    'French fries' '4 handfuls'
+log -d 2024-08-12 'French fries' 1.5
+food ketchup -v 'Ghost Pepper' -s "Melinda's" T 170
+log -d 2024-08-12 ketchup -v "Ghost Pepper" 0.75
+food mozzarella oz 180
+food 'panko breadcrumbs' c 165
+food 'caesar dressing' T 130
+recipe \
+    -a 'romaine lettuce' 15 \
+    -a 'Kirkland low sodium bacon' 1.0 \
+    -a 'mozzarella' 1 \
+    -a 'chicken breast' 0.5 \
+    -a egg 1 \
+    -a flour 0.5 \
+    -a 'panko breadcrumbs' 0.333333333333333 \
+    -a 'caesar dressing' 1.0 \
+    -a 'bread, Maria' 0.16666666666666666 \
+    'chicken caesar salad' 'large bowl'
+log -d 2024-08-12 'chicken caesar salad' 0.25
+food 'ice cream' -v 'Butter Pecan' -s Tillamook scoop 75
+log -d 2024-08-12 'ice cream' -v 'Butter Pecan' 1.0
+log -d 2024-08-12 'ice cream' -v 'Mint Chocolate Chip' 1.0
+log -d 2024-08-13 'Smoothie 3' 0.5
+log -d 2024-08-13 coffee 1.0
+log -d 2024-08-13 'half & half' 0.5
+food bagel -v plain -s Kirkland bagel 540
+log -d 2024-08-13 bagel -v plain 0.5
+log -d 2024-08-13 'cream cheese spread' 0.5
+log -d 2024-08-13 'mint chip Oreo' 2.0
+log -d 2024-08-13 'cashew chicken' 0.25
+food tortilla -v corn tortilla 5
+food 'ground beef' lb 299
+recipe \
+    -a 'ground beef' 0.5 \
+    -a 'cheddar cheese' 2.0 \
+    -a tortilla 6 \
+    -a onion 0.5 \
+    'crunchy tacos' '6 tacos'
+log -d 2024-08-13 'crunchy tacos' 0.6666666666666666
+log -d 2024-08-13 zucchini 0.5
+log -d 2024-08-13 onion 0.25
+log -d 2024-08-13 'Greek yogurt' 0.09375
+food 'corn chips' '21 chips' 70
+log -d 2024-08-13 'corn chips' 0.5
+log -d 2024-08-14 coffee 2.0
+log -d 2024-08-14 'half & half' 1.0
+food 'pancake mix' -s Kodiak c 900
+food 'maple syrup' T 0
+recipe \
+    -a 'pancake mix' 1.0 \
+    -a 'cheddar cheese' 2.0 \
+    -a 'Kirkland Italian sausage' 1.0 \
+    -a 'maple syrup' 2.0 \
+    'Ersatz McGriddle' '5 pancakes'
+log -d 2024-08-14 'Ersatz McGriddle' 0.4
+log -d 2024-08-14 'Smoothie 3' 0.6
+log -d 2024-08-14 'mint chip Oreo' 4.0
+recipe \
+    -a flour 3 \
+    -a butter 0.675 \
+    -a 'baking powder' 2 \
+    'homemade tortilla' -n 16 tortilla
+recipe \
+    -a 'homemade tortilla' 1 \
+    -a 'turkey, sliced' 3 \
+    -a 'cheddar cheese' 1 \
+    -a mayonnaise 0.5 \
+    -a 'mustard, stone ground' 1 \
+    'turkey wrap' 'wrap'
+log -d 2024-08-14 'turkey wrap' 1
+recipe \
+    -a 'homemade tortilla' 1 \
+    -a hummus 1 \
+    -a zucchini 0.25 \
+    -a onion 0.25 \
+    -a 'bell pepper' 0.5 \
+    'veggie wrap' 'wrap'
+log -d 2024-08-14 'veggie wrap' 1
+log -d 2024-08-14 'dill pickle chips' 1
+food 'Dr Pepper' -f canned -n 12 oz 55
+log -d 2024-08-14 'Dr Pepper' 7.5
+food 'pizza' -v 'Deluxe -sausage' -s "Marco's" slice 810
+log -d 2024-08-14 'pizza' -v 'Deluxe -sausage' 3.0
+food 'ice cream' -v 'Tillamook Mudslide' -s Tillamook scoop 70
+log -d 2024-08-14 'ice cream' -v 'Tillamook Mudslide' 1.0
+log -d 2024-08-14 'ice cream' -v 'Mint Chocolate Chip' 0.5
+log -d 2024-08-14 'ice cream' -v 'Waffle Cone Swirl' 0.5
+log -d 2024-08-14 'mint chip Oreo' 1.0
+log -d 2024-08-15 'coffee' 2.0
+log -d 2024-08-15 'half & half' 1.5
+recipe \
+    -a 'ground beef' 0.5 \
+    -a "Kirkland Italian sausage" 2 \
+    -a 'panko breadcrumbs' 0.16666 \
+    'Meatballs' -n 10 'meatball'
+food 'parmesan cheese' -n 1 oz 360
+food 'riced hearts of palm' c 0
+food 'Sausage McGriddles' -s "McDonald's" sandwich 990
+log -d 2024-08-15 'Smoothie 3' 0.5
+log -d 2024-08-15 'pizza' -v 'Deluxe -sausage' 2
+log -d 2024-08-15 'Dr Pepper' 7.5
+food 'beef broth' -v Maria -n 0.5 c 150
+log -d 2024-08-15 'beef broth' 0.5
+log -d 2024-08-15 'bell pepper' 0.1
+log -d 2024-08-15 onion 0.3
+food cucumber -f sliced -n 0.5 c 1
+log -d 2024-08-15 cucumber 0.5
+log -d 2024-08-15 zucchini 0.25
+log -d 2024-08-15 'Greek yogurt' 0.1
+log -d 2024-08-15 'riced hearts of palm' 0.5
+log -d 2024-08-15 Meatballs 3
+log -d 2024-08-16 coffee 2
+log -d 2024-08-16 'half & half' 2
+food 'bagel' -v blueberry bagel 400
+log -d 2024-08-16 bagel -v blueberry 0.5
+log -d 2024-08-16 'cream cheese spread' 0.75
+recipe \
+    -a banana 1.25 \
+    -a zucchini 0.5 \
+    -a asparagus 0.5 \
+    -a 'frozen fruit' 1.0 \
+    -a pineapple 1.0 \
+    -a 'fiber powder' 1.0 \
+    -a ginger 1.0 \
+    'Smoothie 4' smoothie
+log -d 2024-08-16 'Smoothie 4' 0.5
+log -d 2024-08-16 Meatballs 3
+log -d 2024-08-16 'beef broth' 0.25
+log -d 2024-08-16 'bell pepper' 0.1
+log -d 2024-08-16 onion 0.25
+log -d 2024-08-16 cucumber 0.5
+log -d 2024-08-16 zucchini 0.25
+log -d 2024-08-16 'Greek yogurt' 0.1
+log -d 2024-08-16 rice 0.25
+log -d 2024-08-16 'riced hearts of palm' 0.25
+log -d 2024-08-16 'Dr Pepper' 7.5
+food 'ginger beer' -s Summit -n 12 oz 30
+log -d 2024-08-16 'ginger beer' 12
+food salsa -v "Restaurant Style" -s 'Casa Mamita' -n 100 g 700
+recipe \
+    -a 'chicken breast' 1 \
+    -a salsa 250 \
+    'Chicken & Salsa' batch
+recipe \
+    -a 'Chicken & Salsa' 0.125 \
+    -a 'homemade tortilla' 2 \
+    -a onion 0.25 \
+    -a "cheddar cheese" 1 \
+    'Chicken Tacos' -n 2 taco
+log -d 2024-08-16 'Chicken Tacos' 2
+food 'frozen custard' -v 'Crazy for Cookie Dough' -s "Culver's" -n 2 scoop 565
+log -d 2024-08-16 'frozen custard' -v 'Crazy for Cookie Dough' 1.25
+food 'sour cream' -s Daisy -n 2 T 15
+log -d 2024-08-16 'sour cream' 1.5
+log -d 2024-08-17 coffee 2
+log -d 2024-08-17 'half & half' 1
+food 'protein powder' scoop 30
+recipe \
+    -a 'protein powder' 1 \
+    -a banana 0.5 \
+    -a zucchini 0.25 \
+    -a asparagus 0.25 \
+    -a 'frozen fruit' 0.5 \
+    -a pineapple 1.0 \
+    -a 'fiber powder' 0.5 \
+    -a ginger 0.5 \
+    'Smoothie 4' smoothie
+log -d 2024-08-17 'Smoothie 4' 1
+log -d 2024-08-17 'Dr Pepper' 7.5
+recipe \
+    -a flour 2 \
+    -a 'yeast, dry' 0.0833333333333333 \
+    -a sugar 0.03125 \
+    -a 'olive oil' 2 \
+    'pizza dough' -n 1 large
+food pepperoni -n 15 slice 500
+food 'pizza sauce' -v Traditional -s Reggano -n 0.25 c 260
+recipe \
+    -a 'pizza dough' 0.5 \
+    -a 'pizza sauce' 0.25 \
+    -a pepperoni 10 \
+    -a mozzarella 5 \
+    'pizza Maria' -n 8 slice
+log -d 2024-08-17 'pizza Maria' 4
+food 'vanilla extract' t 0
+food 'chocolate' -v bittersweet -f chips -n 10 oz 0
+recipe \
+    -a flour 3.667 \
+    -a 'baking soda' 1.25 \
+    -a 'baking powder' 1.5 \
+    -a 'salt' 6 \
+    -a butter 2.5 \
+    -a sugar 2.25 \
+    -a egg 2 \
+    -a 'vanilla extract' 2 \
+    -a chocolate 10 \
+    'chocolate chip cookie' -n 60 cookie
+log -d 2024-08-17 'chocolate chip cookie' 4.5
+log -d 2024-08-17 potato 1
+food 'white cheddar cheese' oz 180
+log -d 2024-08-17 'Greek yogurt' 0.1875
+log -d 2024-08-17 'butter' 0.125
+log -d 2024-08-17 'white cheddar cheese' 1
+food steak -v ribeye -n 10 oz 150
+food "Tony Chachere's" '¼ t' 110
+log -d 2024-08-17 steak 8
+log -d 2024-08-17 "Tony Chachere's" 1
+log -d 2024-08-17 asparagus 1
+log -d 2024-08-17 'baby bella mushrooms' 3
+log -d 2024-08-17 onion 0.25
+log -d 2024-08-17 'ice cream' -v 'Tillamook Mudslide' 2
+food vodka oz 0
+log -d 2024-08-17 vodka 1
+log -d 2024-08-17 'ginger beer' 12
+log -d 2024-08-18 coffee 2
+log -d 2024-08-18 'half & half' 1
+log -d 2024-08-18 'Kirkland low sodium bacon' 1
+log -d 2024-08-18 egg 1
+log -d 2024-08-18 salt 0.25
+log -d 2024-08-18 bagel 0.5
+log -d 2024-08-18 mayonnaise 0.25
+log -d 2024-08-18 'white cheddar cheese' 0.5
+log -d 2024-08-18 'Dr Pepper' 7.5
+food orzo -n 0.333 c 0
+food spinach -n 8 oz 174
+food 'sun-dried tomatoes' -s Traina -n 5 g 5
+food 'chicken broth' -v Maria -n 0.5 c 70
+recipe \
+    -a orzo 8 \
+    -a spinach 4 \
+    -a 'sun-dried tomatoes' 80 \
+    -a 'chicken broth' 4 \
+    -a onion 1 \
+    -a 'half & half' 4 \
+    -a butter 0.375 \
+    -a garlic 2 \
+    "Sun-dried Tomato Orzo" pot
+log -d 2024-08-18 'Sun-dried Tomato Orzo' 0.25
+log -d 2024-08-18 'ginger beer' 12
+log -d 2024-08-18 'chocolate chip cookie' 2
+log -d 2024-08-19 coffee 2
+log -d 2024-08-19 'half & half' 1.5
+log -d 2024-08-19 coffee 2
+log -d 2024-08-19 'half & half' 1.5
+food 'Floridian French Toast' -s "First Watch" order 820
+log -d 2024-08-19 "Floridian French Toast" 0.75
+log -d 2024-08-19 'Chicken Tacos' 2
+log -d 2024-08-19 'Dr Pepper' 7.5
+log -d 2024-08-19 'chicken breast' 0.5
+log -d 2024-08-19 asparagus 1
+food 'small potato' potato 0
+recipe \
+    -a 'small potato' 25 \
+    -a 'parmesan cheese' 1 \
+    'Cheesy Smashed Potatoes' -n 25 potato
+log -d 2024-08-19 'baby bella mushrooms' 4
+log -d 2024-08-19 'Cheesy Smashed Potatoes' 7
+log -d 2024-08-20 coffee 2
+log -d 2024-08-20 'half & half' 1
+log -d 2024-08-20 bagel 0.5
+log -d 2024-08-20 'cream cheese spread' 0.5
+log -d 2024-08-20 'Kirkland low sodium bacon' 1
+log -d 2024-08-20 'Smoothie 4' 1
+food 'hot sauce' -v 'Death Angel' -s 'OSA Gourmet' t 125
+log -d 2024-08-20 'hot sauce' -v "Death Angel" 0.125
+log -d 2024-08-20 "Sun-dried Tomato Orzo" 0.25
+food 'plantain chips' -v Lime -s Chifles -n 1 oz 220
+log -d 2024-08-20 'plantain chips' 0.5
+log -d 2024-08-20 cucumber 1
+food 'ranch dressing' -v 'Light Parmesan Peppercorn' -s "Wish Bone" -n 2 T 254
+log -d 2024-08-20 coffee 1
+food pizza -v pepperoni -s "Marco's" slice 720
+food 'Smokehouse BBQ Chicken' -s Panera sandwich 2250
+log -d 2024-08-20 'Smokehouse BBQ Chicken' 0.75
+log -d 2024-08-20 pizza -v pepperoni 2
+food Starry -n 12 oz 35
+log -d 2024-08-20 Starry 8
+log -d 2024-08-20 'ice cream' -v 'Tillamook Mudslide' 2
+food 'vanilla single with Andes mints' -s "Culver's" scoop 90
+log -d 2024-08-20 'vanilla single with Andes mints' 0.5
+log -d 2024-08-21 coffee 2
+log -d 2024-08-21 'half & half' 1
+log -d 2024-08-21 bagel 0.5
+log -d 2024-08-21 'cream cheese spread' 0.5
+log -d 2024-08-21 'Chicken Tacos' 1
+log -d 2024-08-21 'baby bella mushrooms' 2
+food 'hot sauce' -v Original -s 'Tabañero' t 30
+log -d 2024-08-21 'hot sauce' -v Original 0.5
+log -d 2024-08-21 'homemade tortilla' 1
+log -d 2024-08-21 'Cheesy Smashed Potatoes' 7
+log -d 2024-08-21 asparagus 1.0
+log -d 2024-08-21 'chicken breast' 0.5
+food shrimp -n 8 prawn 310
+food 'soy sauce' -v 'Reduced Sodium' -s Fusia T 570
+food 'hot honey' T 0
+recipe \
+    -a shrimp 16 \
+    -a rice 0.6667 \
+    -a carrot 1 \
+    -a onion 0.6667 \
+    -a garlic 2 \
+    -a asparagus 0.1 \
+    -a 'rice vinegar' 2 \
+    -a 'hot honey' 1 \
+    -a 'sesame seeds' 0.5 \
+    -a 'soy sauce' 1.5 \
+    "Shrimp Fried Rice" -v Maria -n 3 serving
+log -d 2024-08-21 "Shrimp Fried Rice" 1
+log -d 2024-08-21 "chocolate chip cookie" 2
+log -d 2024-08-22 "Smoothie 4" 1
+log -d 2024-08-22 coffee 2
+log -d 2024-08-22 'half & half' 1
+
+log -d 2024-08-22 "Shrimp Fried Rice" 1
+log -d 2024-08-22 cashews 0.125
+log -d 2024-08-22 'soy sauce' 0.16667
+log -d 2024-08-22 asparagus 0.5
+food 'Chicken Sandwich' -v Original -s Chick-fil-A sandwich 1460
+food 'Waffle Fries' -s Chick-fil-A -v "no salt" large 30
+food 'Chick-fil-A Sauce' -s Chick-fil-A dipcup 170
+food 'Peach Milkshake' -s Chick-fil-A large 560
+log -d 2024-08-22 'Chicken Sandwich' 1
+log -d 2024-08-22 'Waffle Fries' -v 'no salt' 1
+log -d 2024-08-22 'Chick-fil-A Sauce' 1
+log -d 2024-08-22 ketchup 1.5
+log -d 2024-08-22 'Peach Milkshake' 1
+log -d 2024-08-23 tea 1
+log -d 2024-08-23 'half & half' 1
+food Oatmeal -v 'Blueberries & Cream' -s Kodiak packet 210
+log -d 2024-08-23 Oatmeal -v "Blueberries & Cream" 2
+food pizza -v Deluxe -s "Marco's" slice 930
+food pizza -v Garden -s "Marco's" slice 760
+log -d 2024-08-23 pizza -v Deluxe 1
+log -d 2024-08-23 pizza -v Garden 1
+food 'Havarti cheese' -s Tillamook -f sliced slice 135
+food 'Montreal Steak seasoning' -s McCormick -n 0.25 t 180
+food 'Worcestershire sauce' -s 'Lea & Perrins' t 65
+food 'hamburger bun' bun 250
+food mustard -v spicy -s Publix t 60
+recipe \
+    -a 'ground beef' 0.6667 \
+    -a 'Havarti cheese' 1 \
+    -a 'cheddar cheese' 1 \
+    -a mustard 1 \
+    -a 'Montreal Steak seasoning' 0.25 \
+    -a 'Worcestershire sauce' 0.25 \
+    -a onion 0.1 \
+    -a 'baby bella mushrooms' 1.5 \
+    -a 'hamburger bun' 1 \
+    'Double Burger' -v Holly sandwich
+log -d 2024-08-23 'Double Burger' 1
+log -d 2024-08-23 ketchup 0.5
+log -d 2024-08-23 'chocolate chip cookie' 1
+food 'ice cream' -v 'Cosmic Brownie' -s "Kelly's" scoop 90
+log -d 2024-08-23 'ice cream' -v 'Cosmic Brownie' 1
+food 'salt-free baking powder' t 0
+food 'NU salt' -n 0.25 t 0
+recipe \
+    -a flour 2 \
+    -a sugar 0.125 \
+    -a 'salt-free baking powder' 4 \
+    -a 'NU salt' 0.5 \
+    -a butter 0.5 \
+    -a 'half & half' 16 \
+    -a 'olive oil' 1 \
+    -a 'vanilla extract' 1 \
+    -a 'cheddar cheese' 2 \
+    -a 'Kirkland Italian sausage' 3 \
+    -a 'maple syrup' 1.5 \
+    "McGriddle Bites" -v Maria -n 20 bites
+log -d 2024-08-22 "McGriddle Bites" 2
+log -d 2024-08-24 coffee 3
+log -d 2024-08-24 'half & half' 2
+log -d 2024-08-24 "McGriddle Bites" 2
+log -d 2024-08-24 "Smoothie 4" 1
+log -d 2024-08-24 'Dr Pepper' 7.5
+food Sunchips -v "Harvest Cheddar" -s Sunchips -n 1.5 oz 260
+log -d 2024-08-24 Sunchips 1.5
+food 'Hook & Ladder' -s Firehouse sandwich 3000
+food 'pickle spear' -s Firehouse sandwich 240
+log -d 2024-08-24 'Hook & Ladder' 0.75
+log -d 2024-08-24 'pickle spear' 1
+recipe \
+    -a salt 2.0 \
+    -a flour 3.5 \
+    -a 'yeast, dry' 0.0833333333333333 \
+    'bread, low salt' -n 10 slice
+log -d 2024-08-24 'bread, low salt' 0.5
+recipe \
+    -a egg 5 \
+    -a flour 5 \
+    -a 'NU salt' 1 \
+    'salt-free pasta' -n 10 serving
+food 'traditional pasta sauce' -s Publix -n 0.5 c 470
+recipe \
+    -a onion 2 \
+    -a 'Kirkland Italian sausage' 5 \
+    -a 'pizza sauce' 1.75 \
+    -a 'traditional pasta sauce' 2.5 \
+    'Sausage Red Sauce' -n 12 serving
+log -d 2024-08-24 'salt-free pasta' 1
+log -d 2024-08-24 'Sausage Red Sauce' 1
+log -d 2024-08-24 'caesar dressing' 0.5
+log -d 2024-08-25 coffee 2
+log -d 2024-08-25 'half & half' 1
+food 'chai latte' -s Starbucks -v hot -n 20 oz 150
+food 'bacon, sausage & egg wrap' -s Starbucks wrap 1050
+log -d 2024-08-25 'chai latte' 20
+log -d 2024-08-25 'bacon, sausage & egg wrap' 0.6667
+food 'good chicken' -s Melao piece 1500
+log -d 2024-08-25 'good chicken' 1
+food 'milk tea' -n 16 oz 40
+log -d 2024-08-25 'milk tea' 16
+log -d 2024-08-25 'cheddar cheese' 1
+log -d 2024-08-25 'white cheddar cheese' 1
+food 'cracker' -v 'Town House' -s Kellogg -n 5 cracker 150
+log -d 2024-08-25 'cracker' 7
+log -d 2024-08-26 coffee 2
+log -d 2024-08-26 'half & half' 1.5
+log -d 2024-08-26 'Smoothie 4' 1
+food bagel -v everything -s Kirkland bagel 550
+log -d 2024-08-26 bagel -v everything 0.5
+log -d 2024-08-26 'cream cheese spread' 0.5
+log -d 2024-08-26 'Kirkland low sodium bacon' 1.5
+log -d 2024-08-26 'fries, without salt' 0.5
+log -d 2024-08-26 'caesar dressing' 1.5
+food 'chicken tenders' -s Publix -n 3 oz 630
+log -d 2024-08-26 'chicken tenders' 3
+recipe \
+    -a flour 3.667 \
+    -a 'baking soda' 1.25 \
+    -a 'baking powder' 1.5 \
+    -a salt 2 \
+    -a butter 2.5 \
+    -a sugar 2.25 \
+    -a egg 2 \
+    -a 'vanilla extract' 2 \
+    -a chocolate 10 \
+    'chocolate chip cookie' -v 'less salt' -n 60 cookie
+log -d 2024-08-26 'chocolate chip cookie' -v 'less salt' 2
+log -d 2024-08-27 coffee 2
+log -d 2024-08-27 'half & half' 1.5
+log -d 2024-08-27 bagel -v everything 0.5
+log -d 2024-08-27 'cream cheese spread' 0.5
+recipe \
+    -a 'chicken tenders' 2 \
+    -a 'homemade tortilla' 1 \
+    -a 'caesar dressing' 0.5 \
+    'Chicken Caesar Wrap' wrap
+log -d 2024-08-27 'Chicken Caesar Wrap' 2
+log -d 2024-08-27 'chocolate chip cookie' -v 'less salt' 3
+log -d 2024-08-27 banana 1
+food 'Bayou brownie' -v "Mary Deibler" -n 15 brownie 2026
+log -d 2024-08-27 'Bayou brownie' 1
+food 'Grilled Shrimp' -v appetizer -s "Texas Roadhouse" order 1530
+log -d 2024-08-27 'Grilled Shrimp' 0.5
+food 'Steak Kabob' -v broccoli -s "Texas Roadhouse" order 3220
+log -d 2024-08-27 'Steak Kabob' 0.5
